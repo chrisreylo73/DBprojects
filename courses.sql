@@ -48,12 +48,12 @@
   ( 'fzeng@msudenver.edu','Zeng,Fanyu','','',''),
   ( 'aibrahi8@msudenver.edu','Ibrahim,Adil','','',''),
   ( 'rranjidh@msudenver.edu','Rajan,Ranjidha','','',''),
-  ( 'fjiang@msudenver.edu','Jiang,Feng','','','');
-  ( 'tle61@msudenver.edu','Le,ThienNgo','','','');
-  ( 'geinitz@msudenver.edu','Geinitz,Steven','','','');
-  ( 'pauljod@msudenver.edu','Paul,Jody','','','');
-  ( 'wzhu1@msudenver.edu','Zhu,Weiying','','','');
-  ( 'tmota@msudenver.edu','Mota,Thyago Lisboa','','','');
+  ( 'fjiang@msudenver.edu','Jiang,Feng','','',''),
+  ( 'tle61@msudenver.edu','Le,ThienNgo','','',''),
+  ( 'geinitz@msudenver.edu','Geinitz,Steven','','',''),
+  ( 'pauljod@msudenver.edu','Paul,Jody','','',''),
+  ( 'wzhu1@msudenver.edu','Zhu,Weiying','','',''),
+  ( 'tmota@msudenver.edu','Mota,Thyago Lisboa','','',''),
   ( 'beatys@msudenver.edu','Beaty,Steven','','','');
   
 
