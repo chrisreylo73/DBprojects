@@ -112,7 +112,7 @@ SELECT name FROM Instructors ORDER BY name ASC;
 SELECT prefix, "number", section, title FROM Courses NATURAL JOIN Sections WHERE Courses."number" = Sections."number" ORDER BY prefix, "number", section;
 
 -- TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
-
+SELECT prefix, "number",  COUNT(sections), title FROM  Courses NATURAL JOIN Sections WHERE Courses."number" = Sections."number" ORDER BY prefix, "number";
 
 -- TODO: an alphabetical list of the instructors that are teaching CS 1050 or CS 2050 (must avoid showing names repeated)
 
