@@ -100,12 +100,16 @@
   ('31107','CS','2400','002','Spring','2022','wzhu1@msudenver.edu','MW 10:00am-11:50am', '2022-01-18', '2022-05-14','AES-210','Main');
   
 -- TODO: the total number of courses (name the count as "total")
+SELECT COUNT(*) FROM Courses;
 
 -- TODO: a list of all courses prefix, number, and title, sorted by prefix and then number
+SELECT prefix, "number", title FROM Courses ORDER BY prefix, number ASC;
 
 -- TODO: an alphabetical list of all instructors in the database
+SELECT name FROM Instructors ORDER BY name ASC;
 
 -- TODO: the prefix, number, section, and (course) title of all courses sections in the database, sorted by prefix, number and section
+SELECT prefix, "number", section, title FROM Courses NATURAL JOIN Sections WHERE Courses."number" = Sections."number" ORDER BY prefix, "number", section;
 
 -- TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
 
