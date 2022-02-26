@@ -113,6 +113,7 @@ SELECT prefix, "number", section, title FROM Courses NATURAL JOIN Sections WHERE
 
 -- TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
 
+
 -- TODO: an alphabetical list of the instructors that are teaching CS 1050 or CS 2050 (must avoid showing names repeated)
 
 -- TODO: show an alphabetical list of instructors followed by the number of sections (named as "sections") that they are teaching, sorted in descending order of "sections"
