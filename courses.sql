@@ -22,7 +22,7 @@
         title VARCHAR(70) NOT NULL,
         description VARCHAR(2000) NOT NULL,
         credits SMALLINT NOT NULL,
-        prereqs VARCHAR(270) 
+        prereqs VARCHAR(270), 
         PRIMARY KEY (prefix, "number")
     );
 -- TODO: create table sections
