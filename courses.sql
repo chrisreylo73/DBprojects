@@ -53,7 +53,7 @@
   ( 'geinitz@msudenver.edu','Geinitz,Steven','','',''),
   ( 'pauljod@msudenver.edu','Paul,Jody','','',''),
   ( 'wzhu1@msudenver.edu','Zhu,Weiying','','',''),
-  ( 'tmota@msudenver.edu','Mota,Thyago Lisboa','','',''),
+  ( 'tmota@msudenver.edu','Mota,Thyago Lisboa','Assistant Professor','AES-200R','M 01:00pm-03:00pm, W 08:00am-11:00am'),
   ( 'codd@msudenver.edu','Codd,Edgar','','',''),
   ( 'beatys@msudenver.edu','Beaty,Steven','','','');
   
@@ -86,23 +86,18 @@
   ('31999','CS','1030','002','Spring','2022','cohenb@msudenver.edu','MW 12:00pm-01:50pm',2022-01-18,2022-05-14,'AES-285','Main'),
   ('32000','CS','1030','003','Spring','2022','cohenb@msudenver.edu','MW 04:00pm-05:50pm',2022-01-18,2022-05-14,'AES-285','Main'),
   ('32380','CS','1030','004','Spring','2022','fzeng@msudenver.edu','TR 06:00pm-07:50pm',2022-01-18,2022-05-14,'','Online'),
-
   ('30640','CS','1050','001','Spring','2022','aibrahi8@msudenver.edu','MW 10:00am-11:50am', 2022-01-18, 2022-05-14,'AES-285','Main'),
   ('30641','CS','1050','002','Spring','2022','rranjidh@msudenver.edu','TR 10:00am-11:50am', 2022-01-18, 2022-05-14,'AES-285','Main'),
   ('30783','CS','1050','003','Spring','2022','fzeng@msudenver.edu','MW 06:00pm-07:50pm', 2022-01-18, 2022-05-14,'','Online'),
   ('34662','CS','1050','004','Spring','2022','cohenb@msudenver.edu','TR 10:00am-11:50am', 2022-01-18, 2022-05-14,'AES-285','Main'),
-  
   ('31296','CS','1400','001','Spring','2022','fjiang@msudenver.edu','TR 12:00pm-01:50pm', 2022-01-18, 2022-05-14,'AES-210','Main'),
   ('34663','CS','1400','002','Spring','2022','rranjidh@msudenver.edu','MW 04:00pm-05:50pm', 2022-01-18, 2022-05-14,'AES-210','Main'),
-  
   ('30643','CS','2050','001','Spring','2022','aibrahi8@msudenver.edu','TR 02:00pm-03:50pm', 2022-01-18, 2022-05-14,'AES-210','Main'),
   ('30644','CS','2050','002','Spring','2022','tle61@msudenver.edu','MW 06:00pm-07:50pm', 2022-01-18, 2022-05-14,'AES-210','Main'),
   ('34664','CS','2050','003','Spring','2022','aibrahi8@msudenver.edu','MW 02:00pm-03:50pm', 2022-01-18, 2022-05-14,'AES-285','Main'),
-  
   ('34665','CS','2240','001','Spring','2022','tle61@msudenver.edu','TR 02:00pm-03:50pm', 2022-01-18, 2022-05-14,'AES-207','Main'),
-  
   ('30645','CS','2400','001','Spring','2022','rranjidh@msudenver.ed','TR 04:00pm-05:50pm', 2022-01-18, 2022-05-14,'AES-210','Main'),
-  ('31107','CS','2400','002','Spring','2022','wzhu1@msudenver.edu','MW 10:00am-11:50am', 2022-01-18, 2022-05-14,'AES-210','Main'),
+  ('31107','CS','2400','002','Spring','2022','wzhu1@msudenver.edu','MW 10:00am-11:50am', 2022-01-18, 2022-05-14,'AES-210','Main');
   
 -- TODO: the total number of courses (name the count as "total")
 
