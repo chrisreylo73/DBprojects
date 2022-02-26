@@ -109,10 +109,10 @@ SELECT prefix, "number", title FROM Courses ORDER BY prefix, number ASC;
 SELECT name FROM Instructors ORDER BY name ASC;
 
 -- TODO: the prefix, number, section, and (course) title of all courses sections in the database, sorted by prefix, number and section
-SELECT prefix, "number", section, title FROM Courses NATURAL JOIN Sections WHERE Courses."number" = Sections."number" ORDER BY prefix, "number", section;
+SELECT A.prefix, A."number", B.section, A.title FROM Courses A, Sections B WHERE A."number" = B."number" ORDER BY prefix, "number", section;
 
 -- TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
-SELECT prefix, "number",  COUNT(sections), title FROM  Courses NATURAL JOIN Sections WHERE Courses."number" = Sections."number" ORDER BY prefix, "number";
+SELECT prefix, "number", title, COUNT(section) AS "sections" FROM Courses NATURAL JOIN Sections GROUP BY prefix, "number", title ORDER BY prefix, "number";
 
 -- TODO: an alphabetical list of the instructors that are teaching CS 1050 or CS 2050 (must avoid showing names repeated)
 
