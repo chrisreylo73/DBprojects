@@ -8,7 +8,7 @@
 -- TODO: (optional) drop all tables
     DROP TABLE IF EXISTS Instructors, Courses, Sections;
 -- TODO: create table instructors
-    CREATE TABLE Instuctors (
+    CREATE TABLE Instructors (
         email VARCHAR(70) PRIMARY KEY,
         name VARCHAR(70) NOT NULL,
         title VARCHAR(70),
@@ -36,10 +36,10 @@
         instructor VARCHAR(270),
         "times" VARCHAR(70),
         start DATE,
-        end DATE,
+        "end" DATE,
         location VARCHAR(70),
-        campus VARCHAR(10)
-        FOREIGN KEY (prefix, "number") REFERENCES Courses (prefix, "number")
+        campus VARCHAR(10),
+        FOREIGN KEY (prefix, "number") REFERENCES Courses (prefix, "number"),
         FOREIGN KEY (instructor) REFERENCES Instructors (email)
     );
 -- TODO: manually insert a few instructors
