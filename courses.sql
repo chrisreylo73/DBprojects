@@ -54,6 +54,7 @@
   ( 'pauljod@msudenver.edu','Paul,Jody','','',''),
   ( 'wzhu1@msudenver.edu','Zhu,Weiying','','',''),
   ( 'tmota@msudenver.edu','Mota,Thyago Lisboa','','',''),
+  ( 'codd@msudenver.edu','Codd,Edgar','','',''),
   ( 'beatys@msudenver.edu','Beaty,Steven','','','');
   
 
@@ -102,7 +103,6 @@
   
   ('30645','CS','2400','001','Spring','2022','rranjidh@msudenver.ed','TR 04:00pm-05:50pm', 2022-01-18, 2022-05-14,'AES-210','Main'),
   ('31107','CS','2400','002','Spring','2022','wzhu1@msudenver.edu','MW 10:00am-11:50am', 2022-01-18, 2022-05-14,'AES-210','Main'),
-  
   
 -- TODO: the total number of courses (name the count as "total")
 
