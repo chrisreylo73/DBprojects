@@ -101,23 +101,18 @@
   
 -- TODO: the total number of courses (name the count as "total")
 SELECT COUNT(*) FROM Courses;
-
 -- TODO: a list of all courses prefix, number, and title, sorted by prefix and then number
 SELECT prefix, "number", title FROM Courses ORDER BY prefix, number ASC;
-
 -- TODO: an alphabetical list of all instructors in the database
 SELECT name FROM Instructors ORDER BY name ASC;
-
 -- TODO: the prefix, number, section, and (course) title of all courses sections in the database, sorted by prefix, number and section
 SELECT A.prefix, A."number", B.section, A.title FROM Courses A, Sections B WHERE A."number" = B."number" ORDER BY prefix, "number", section;
-
 -- TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
 SELECT prefix, "number", title, COUNT(section) AS "sections" FROM Courses NATURAL JOIN Sections GROUP BY prefix, "number", title ORDER BY prefix, "number";
-
 -- TODO: an alphabetical list of the instructors that are teaching CS 1050 or CS 2050 (must avoid showing names repeated)
-
+SELECT name FROM Instructors NATURAL JOIN Sections WHERE "number" = '1050' OR "number" = '2050' GROUP BY name ORDER BY 1; 
 -- TODO: show an alphabetical list of instructors followed by the number of sections (named as "sections") that they are teaching, sorted in descending order of "sections"
-
+SELECT A.name, COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY A.name, "sections" DESC;
 -- TODO: same as before, but limit the output to the top 3 instructors based on the number of sections that they are teaching
 
 -- TODO: show an alphabetical list of the instructor(s) that are NOT currently teaching a section this semester 
