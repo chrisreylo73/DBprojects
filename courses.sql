@@ -115,7 +115,6 @@ SELECT name FROM Instructors NATURAL JOIN Sections WHERE "number" = '1050' OR "n
 SELECT A.name, COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY A.name, "sections" DESC;
 -- TODO: same as before, but limit the output to the top 3 instructors based on the number of sections that they are teaching
 SELECT A.name, COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY "sections" DESC, A.name LIMIT 3;
-
 -- TODO: show an alphabetical list of the instructor(s) that are NOT currently teaching a section this semester 
-
+SELECT A.name FROM Instructors A, Sections B WHERE A.email NOT IN (SELECT instructor FROM Sections) GROUP BY A.name ORDER BY 1;
 -- TODO: show the sections (with the instructor assigned to them) of CS 1050 that are being offered in the spring (2022) on TR 10:00am-11:50am
