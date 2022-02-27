@@ -114,6 +114,7 @@ SELECT name FROM Instructors NATURAL JOIN Sections WHERE "number" = '1050' OR "n
 -- TODO: show an alphabetical list of instructors followed by the number of sections (named as "sections") that they are teaching, sorted in descending order of "sections"
 SELECT A.name, COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY A.name, "sections" DESC;
 -- TODO: same as before, but limit the output to the top 3 instructors based on the number of sections that they are teaching
+SELECT A.name, COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY "sections" DESC, A.name LIMIT 3;
 
 -- TODO: show an alphabetical list of the instructor(s) that are NOT currently teaching a section this semester 
 
