@@ -1,4 +1,4 @@
----------------------------------------psql -U postgres -h localhost
+--Terminal command: psql -U postgres -h localhost
 -- TODO: add a comment section with the names of the team members of the project (limited to 2). You are allowed to work solo as well. 
 -- created at: < 02/21/2022 > - - author: < Christian Lopez, Juan Ruiz >
 -- TODO: create the courses database
@@ -98,23 +98,48 @@
   ('30645','CS','2400','001','Spring',2022,'rranjidh@msudenver.edu','TR 04:00pm-05:50pm', '2022-01-18', '2022-05-14','AES-210','Main'),
   ('31107','CS','2400','002','Spring',2022,'wzhu1@msudenver.edu','MW 10:00am-11:50am', '2022-01-18', '2022-05-14','AES-210','Main');
   
--- TODO: the total number of courses (name the count as "total")
-SELECT COUNT(*) FROM Courses;
--- TODO: a list of all courses prefix, number, and title, sorted by prefix and then number
+-- (1) TODO: the total number of courses (name the count as "total")
+SELECT COUNT(*) AS "total" FROM Courses;
+-- (2) TODO: a list of all courses prefix, number, and title, sorted by prefix and then number
 SELECT prefix, "number", title FROM Courses ORDER BY prefix, number ASC;
--- TODO: an alphabetical list of all instructors in the database
+-- (3) TODO: an alphabetical list of all instructors in the database
 SELECT name AS "Instructor Names" FROM Instructors ORDER BY 1;
--- TODO: the prefix, number, section, and (course) title of all courses sections in the database, sorted by prefix, number and section
+
+-- (4) TODO: the prefix, number, section, and (course) title of all courses sections in the database, sorted by prefix, number and section
 SELECT A.prefix, A."number", B.section, A.title AS "Course Title" FROM Courses A, Sections B WHERE A."number" = B."number" ORDER BY prefix, "number", section;
--- TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
+--ALTERNATIVE ANSWER FOR (4)
+select prefix,number,section,title from sections natural join courses order by prefix,section;
+
+-- (5) TODO: the prefix, number, the number of sections (named as "sections"), and (course) title of all courses sections in the database, sorted by prefix and number
 SELECT prefix, "number", title AS "Course Title", COUNT(section) AS "sections" FROM Courses NATURAL JOIN Sections GROUP BY prefix, "number", title ORDER BY prefix, "number";
--- TODO: an alphabetical list of the instructors that are teaching CS 1050 or CS 2050 (must avoid showing names repeated)
-SELECT name AS "Instructor Names" FROM Instructors INNER JOIN Sections ON email = instructor WHERE "number" = '1050' OR "number" = '2050' AND prefix ='CS' GROUP BY name ORDER BY 1; 
--- TODO: show an alphabetical list of instructors followed by the number of sections (named as "sections") that they are teaching, sorted in descending order of "sections"
+--ALTERNATIVE ANSWER FOR (5)
+select prefix,number,count(section) as sections,title from sections natural join courses group by prefix,number,title order by prefix,number;
+
+-- (6)TODO: an alphabetical list of the instructors that are teaching CS 1050 or CS 2050 (must avoid showing names repeated)
+SELECT name AS "Instructor Names" FROM Instructors INNER JOIN Sections ON email = instructor WHERE "number" = '1050' OR "number" = '2050' AND prefix ='CS' GROUP BY name ORDER BY 1;
+--ALTERNATIVE ANSWER FOR (6)
+select distinct name from sections INNER JOIN instructors on instructor = email where number='1050' or number='2050' order by name ASC;
+
+-- (7)TODO: show an alphabetical list of instructors followed by the number of sections (named as "sections") that they are teaching, sorted in descending order of "sections"
 SELECT A.name AS "Instructor Names", COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY "sections" DESC;
--- TODO: same as before, but limit the output to the top 3 instructors based on the number of sections that they are teaching
-SELECT A.name AS "Instructor Names", COUNT(B.section) AS "sections" FROM Instructors A, Sections B WHERE email = instructor GROUP BY name ORDER BY "sections" DESC, A.name LIMIT 3;
--- TODO: show an alphabetical list of the instructor(s) that are NOT currently teaching a section this semester 
+--ALTERNATIVE ANSWER FOR (7)
+select name,count(section) as sections from sections INNER JOIN instructors on sections.instructor = instructors.email group by name order by sections DESC;
+
+-- (8) TODO: same as before, but limit the output to the top 3 instructors based on the number of sections that they are teaching
+SELECT name AS "Instructor Names", COUNT(section) AS "sections" FROM Instructors , Sections  WHERE email = instructor GROUP BY name ORDER BY "sections" DESC, name LIMIT 3;
+--ALTERNATIVE ANSWER FOR (8)
+select name,count(section) as sections from sections INNER JOIN Instructors ON email = instructor group by name order by sections DESC limit 3;
+
+-- (9) TODO: show an alphabetical list of the instructor(s) that are NOT currently teaching a section this semester 
 SELECT A.name AS "Instructor Names" FROM Instructors A, Sections B WHERE A.email NOT IN (SELECT instructor FROM Sections) GROUP BY A.name ORDER BY 1;
--- TODO: show the sections (with the instructor assigned to them) of CS 1050 that are being offered in the spring (2022) on TR 10:00am-11:50am
+--ALTERNATIVE ANSWER FOR (9)
+select name from instructors where name not in(select distinct name from sections join instructors on sections.instructor = instructors.email) ORDER BY 1;
+--ALTERNATIVE ANSER FOR (9)
+
+
+-- (10) TODO: show the sections (with the instructor assigned to them) of CS 1050 that are being offered in the spring (2022) on TR 10:00am-11:50am
 SELECT A.name AS "Instructor Names", B.section AS "sections" FROM Instructors A, Sections B WHERE email = instructor AND B."number" = '1050' AND B.prefix = 'CS' AND B."year" = '2022' AND B."times" = 'TR 10:00am-11:50am' GROUP BY A.name, B.section;
+--AlTERNATIVE ANSWER FOR (10)
+SELECT DISTINCT name  FROM sections INNER JOIN instructors ON instructor = email WHERE number = '1050' AND prefix = 'CS' AND "year" = '2022' AND times = 'TR 10:00am-11:50am' ORDER BY name;
+
+-- (11) TODO: 
