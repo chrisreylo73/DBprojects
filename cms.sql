@@ -7,14 +7,17 @@
     \c cms
 
 -- TODO: (optional) drop all tables
-    DROP TABLE IF EXISTS Providers, Drg, Providers_DiagnosisRelatedGroups, ProviderLocation;
+    DROP TABLE IF EXISTS Providers, Drg, Providers_Drgs, ProviderLocation, Ruca;
 -- TODO: create all tables (with primary keys, NULL constraints, and foreign keys)
     CREATE TABLE Providers(
+        providerId SERIAL,
         Rndrng_CCN CHAR(6) PRIMARY KEY,
         Rndrng_Prvdr_Org_Name VARCHAR(1000) NOT NULL,
-        Rndrng_Prvdr_St VARCHAR(1000) NOt NULL,
         Rndrng_Prvdr_RUCA VARCHAR(1000) NOT NULL
+        Rndrng_Prvdr_St VARCHAR(1000) Not NULL,  
+        Rndrng_Prvdr_City VARCHAR(1000) NOT NULL,  
     );
+
     CREATE TABLE Drg(
         DRG_Cd CHAR(3) PRIMARY KEY,
         DRG_Desc VARCHAR(5000) NOT NULL
@@ -29,25 +32,31 @@
         Avg_Mdcr_Pymt_Amt DECIMAL NOT NULL,
         PRIMARY KEY (Rndrng_CCN, DRG_Cd)
     );
-    CREATE TABLE ProviderLocations(
-        Rndrng_Prvdr_St VARCHAR(1000) PRIMARY KEY,  
-        Rndrng_Prvdr_City VARCHAR(1000) NOT NULL,  
+
+    CREATE TABLE ProviderState(
+        stateId SERIAL,
         Rndrng_Prvdr_State_Abrvtn CHAR(2) NOT NULL, 
         Rndrng_Prvdr_State_FIPS CHAR (2) NOT NULL, 
-        Rndrng_Prvdr_Zip5 VARCHAR(1000) NOT NULL
+        PRIMARY KEY (stateId, Rndrng_Prvdr_State_Abrvtn)
     );
+
     CREATE TABLE Ruca( 
-        Rndrng_Prvdr_RUCA CHAR(1) PRIMARY KEY, 
-        Rndrng_Prvdr_RUCA_Name VARCHAR(1000) NOT NULL, 
-        Rndrng_Prvdr_RUCA_Desc VARCHAR(5000) NOT NULL
+        rucaId SERIAL,
+        Rndrng_Prvdr_RUCA CHAR(1), 
+        Rndrng_Prvdr_RUCA_Desc VARCHAR(5000) NOT NULL,
+        Rndrng_Prvdr_Zip5 VARCHAR(1000) NOT NULL,
+        PRIMARY KEY (rucaId, Rndrng_Prvdr_RUCA)
     );
+
 -- TODO: create users 
     CREATE USER "cms_admin" PASSWORD '024680';
     CREATE USER "cms" PASSWORD '135791';
 -- TODO: grant access to users 
 -- Not correct but this is the idea (come back to this)
-    GRANT ALL ON TABLE Employees TO "cms_admin";
-    GRANT SELECT ON TABLE Employees TO "cms";
+   GRANT ALL ON TABLE Providers TO "cms_admin";
+   GRANT ALL ON TABLE Drg TO "cms_admin";
+
+   -- GRANT SELECT ON TABLE Employees TO "cms";
 -- TODO: answer all queries
 
 -- a) List all diagnostic names in alphabetical order.   
