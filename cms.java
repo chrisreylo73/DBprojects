@@ -114,6 +114,7 @@ public class cms {
                 rucaInfo[2] = data[6];
                 ruca.add(rucaInfo);
             }
+            System.out.println(ruca.size());
             // System.out.println(providers.get(0)[0]);
             System.out.println(Arrays.toString(providers.get(0)));
             System.out.println(Arrays.toString(providers.get(1)));
@@ -160,10 +161,28 @@ public class cms {
         // providers.get(1)[3] + "');";
 
         PreparedStatement stmt;
+        ArrayList<String> providersKeys = new ArrayList<>();
         ArrayList<String> drgsKeys = new ArrayList<>();
+        ArrayList<String> financesKeys = new ArrayList<>();
+        ArrayList<String> providerStatesKeys = new ArrayList<>();
+        ArrayList<String> rucaKeys = new ArrayList<>();
         try {
+
+            stmt = conn.prepareStatement("INSERT INTO Providers VALUES(?,?,?,?);");
+            int i;
+            for (i = 1; i < providers.size(); i++) {
+                if (!(providersKeys.contains(providers.get(i)[0]))) {
+                    providersKeys.add(providers.get(i)[0]);
+                    stmt.setString(1, providers.get(i)[0]);
+                    stmt.setString(2, providers.get(i)[1]);
+                    stmt.setString(3, providers.get(i)[2]);
+                    stmt.setString(4, providers.get(i)[3]);
+                    stmt.executeUpdate();
+                }
+            }
+            
             stmt = conn.prepareStatement("INSERT INTO Drgs VALUES(?,?);");
-            for (int i = 1; i < drgs.size(); i++) {
+            for (i = 1; i < drgs.size(); i++) {
                 if (!(drgsKeys.contains(drgs.get(i)[0]))) {
                     drgsKeys.add(drgs.get(i)[0]);
                     stmt.setString(1, drgs.get(i)[0]);
@@ -171,6 +190,43 @@ public class cms {
                     stmt.executeUpdate();
                 }
             }
+
+            stmt = conn.prepareStatement("INSERT INTO Finances VALUES(?,?,?,?,?,?);");
+            for (i = 1; i < finances.size(); i++) {
+                if (!(financesKeys.contains(finances.get(i)[0]) && !(financesKeys.contains(finances.get(i)[1])))) {
+                    financesKeys.add(finances.get(i)[0]);
+                    stmt.setString(1, finances.get(i)[0]);
+                    stmt.setString(2, finances.get(i)[1]);
+                    stmt.setInt(3, Integer.parseInt(finances.get(i)[2]));
+                    stmt.setDouble(4, Double.parseDouble(finances.get(i)[3]));
+                    stmt.setDouble(5, Double.parseDouble(finances.get(i)[4]));
+                    stmt.setDouble(6, Double.parseDouble(finances.get(i)[5]));
+                    stmt.executeUpdate();
+                }
+            }
+
+            stmt = conn.prepareStatement("INSERT INTO ProviderStates VALUES(?,?,?);");
+            for (i = 1; i < providerStates.size(); i++) {
+                if (!(providerStatesKeys.contains(providerStates.get(i)[0]))) {
+                    providerStatesKeys.add(providerStates.get(i)[0]);
+                    stmt.setString(1, providerStates.get(i)[0]);
+                    stmt.setString(2, providerStates.get(i)[1]);
+                    stmt.setString(3, providerStates.get(i)[2]);
+                    stmt.executeUpdate();
+                }
+            }
+
+            stmt = conn.prepareStatement("INSERT INTO Ruca VALUES(?,?,?);");
+            for (i = 1; i < ruca.size(); i++) {
+                if (!(rucaKeys.contains(ruca.get(i)[0]))) {
+                    rucaKeys.add(ruca.get(i)[0]);
+                    stmt.setString(1, ruca.get(i)[0]);
+                    stmt.setString(2, ruca.get(i)[1]);
+                    stmt.setString(3, ruca.get(i)[2]);
+                    stmt.executeUpdate();
+                }
+            }
+
         } catch (SQLException e1) {
             e1.printStackTrace();
         }

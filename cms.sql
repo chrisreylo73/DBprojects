@@ -43,7 +43,7 @@
     );
 
     CREATE TABLE Ruca( 
-        Rndrng_Prvdr_RUCA CHAR(1), 
+        Rndrng_Prvdr_RUCA VARCHAR, 
         Rndrng_Prvdr_RUCA_Desc VARCHAR NOT NULL,
         Rndrng_Prvdr_Zip5 VARCHAR NOT NULL,
         Rndrng_CCN VARCHAR,
@@ -52,12 +52,15 @@
     );
 
 -- TODO: create users 
-    CREATE USER "cms_admin" PASSWORD '024680';
-    CREATE USER "cms" PASSWORD '135791';
+   -- CREATE USER "cms_admin" PASSWORD '024680';
+   -- CREATE USER "cms" PASSWORD '135791';
 -- TODO: grant access to users 
 -- Not correct but this is the idea (come back to this)
    GRANT ALL ON TABLE Providers TO "cms_admin";
    GRANT ALL ON Table Drgs TO "cms_admin";
+   GRANT ALL ON Table Finances TO "cms_admin";
+   GRANT ALL ON Table ProviderStates TO "cms_admin";
+   GRANT ALL ON Table Ruca TO "cms_admin";
 
    -- GRANT SELECT ON TABLE Employees TO "cms";
 -- TODO: answer all queries
