@@ -18,7 +18,7 @@
         PRIMARY KEY (Rndrng_CCN),
     );
 
-    CREATE TABLE Drg(
+    CREATE TABLE Drgs(
         DRG_Cd CHAR(3),
         DRG_Desc VARCHAR NOT NULL,
         PRIMARY KEY (DRG_Cd)
@@ -57,7 +57,7 @@
 -- TODO: grant access to users 
 -- Not correct but this is the idea (come back to this)
    GRANT ALL ON TABLE Providers TO "cms_admin";
-   GRANT ALL ON Table Drg TO "cms_admin";
+   GRANT ALL ON Table Drgs TO "cms_admin";
 
    -- GRANT SELECT ON TABLE Employees TO "cms";
 -- TODO: answer all queries
