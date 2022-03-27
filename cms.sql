@@ -7,7 +7,7 @@
     \c cms
 
 -- TODO: (optional) drop all tables
-    DROP TABLE IF EXISTS Providers, Drg, Providers_Drgs, ProviderLocation, Ruca;
+    DROP TABLE IF EXISTS Providers, Drgs, Finances, ProviderStates, Ruca;
 -- TODO: create all tables (with primary keys, NULL constraints, and foreign keys)
     
     CREATE TABLE Providers(
@@ -34,7 +34,7 @@
         PRIMARY KEY (Rndrng_CCN, DRG_Cd) 
     );
 
-    CREATE TABLE ProviderState(
+    CREATE TABLE ProviderStates(
         Rndrng_Prvdr_State_Abrvtn CHAR(2) NOT NULL, 
         Rndrng_Prvdr_State_FIPS CHAR (2) NOT NULL, 
         Rndrng_CCN CHAR(6),
