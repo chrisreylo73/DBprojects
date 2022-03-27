@@ -46,7 +46,7 @@
         Rndrng_Prvdr_RUCA CHAR(1), 
         Rndrng_Prvdr_RUCA_Desc VARCHAR NOT NULL,
         Rndrng_Prvdr_Zip5 VARCHAR NOT NULL,
-        Rndrng_CCN CHAR(6),
+        Rndrng_CCN VARCHAR,
         PRIMARY KEY (Rndrng_Prvdr_RUCA),
         FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN)
     );

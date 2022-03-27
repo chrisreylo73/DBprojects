@@ -101,19 +101,17 @@ public class cms {
                 financesInfo[5] = data[14];
                 finances.add(financesInfo);
 
-                providerStatesInfo = new String[5];
+                providerStatesInfo = new String[3];
                 providerStatesInfo[0] = data[4];
                 providerStatesInfo[1] = data[5];
                 providerStatesInfo[2] = data[0];
                 providerStates.add(providerStatesInfo);
 
-                rucaInfo = new String[2];
+                rucaInfo = new String[3];
                 rucaInfo[0] = data[7];
                 rucaInfo[1] = String.valueOf(data[8]).replace("\"", "");
                 rucaInfo[2] = data[6];
-                rucaInfo[3] = data[0];
                 ruca.add(rucaInfo);
-
             }
             // System.out.println(providers.get(0)[0]);
             System.out.println(Arrays.toString(providers.get(0)));
@@ -162,10 +160,12 @@ public class cms {
 
         PreparedStatement stmt;
         try {
-            stmt = conn.prepareStatement("INSERT INTO Providers VALUES('?'','?');");
+            stmt = conn.prepareStatement("INSERT INTO Drgs VALUES(?,?);");
             for (int i = 1; i < drgs.size(); i++) {
+
                 stmt.setString(1, drgs.get(i)[0]);
                 stmt.setString(2, drgs.get(i)[1]);
+
                 stmt.executeUpdate();
             }
         } catch (SQLException e1) {
