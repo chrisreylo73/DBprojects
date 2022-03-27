@@ -8,14 +8,14 @@ import java.io.*;
 
 public class cms {
     ArrayList<String[]> providers = new ArrayList<>();
-    ArrayList<String[]> drg = new ArrayList<>();
-    ArrayList<String[]> providersDrgs = new ArrayList<>();
-    ArrayList<String[]> providerLocations = new ArrayList<>();
+    ArrayList<String[]> drgs = new ArrayList<>();
+    ArrayList<String[]> finances = new ArrayList<>();
+    ArrayList<String[]> providerStates = new ArrayList<>();
     ArrayList<String[]> ruca = new ArrayList<>();
     String providersStmt;
-    String drgStmt;
-    String providersDrgsStmt;
-    String providerLocationsStmt;
+    String drgsStmt;
+    String financesStmt;
+    String providerStatesStmt;
     String rucaStmt;
 
     private void establishConnection(Scanner keyboard) {
@@ -44,7 +44,7 @@ public class cms {
             this.createStatments(keyboard, conn);
 
             // stmt.executeUpdate(providersStmt);
-            // stmt.executeUpdate(drgStmt);
+            // stmt.executeUpdate(drgsStmt);
 
             // String sql = "SELECT id, name FROM employees";
             // ResultSet resultSet = stmt.executeQuery(sql);
@@ -70,9 +70,9 @@ public class cms {
             String line;
             String[] data = new String[20];
             String[] providersInfo;
-            String[] drgInfo;
-            String[] providers_DrgsInfo;
-            String[] providerLocationsInfo;
+            String[] drgsInfo;
+            String[] financesInfo;
+            String[] providerStatesInfo;
             String[] rucaInfo;
             String[] splitRucaDesc = new String[2];
             // Need to split up further later on!!!
@@ -84,48 +84,48 @@ public class cms {
                 providersInfo[0] = data[0];
                 providersInfo[1] = data[1];
                 providersInfo[2] = data[2];
-                providersInfo[3] = data[7];
+                providersInfo[3] = data[3];
                 providers.add(providersInfo);
 
-                drgInfo = new String[2];
-                drgInfo[0] = data[9];
-                drgInfo[1] = String.valueOf(data[10]).replace("\"", "");
-                drg.add(drgInfo);
+                drgsInfo = new String[2];
+                drgsInfo[0] = data[9];
+                drgsInfo[1] = String.valueOf(data[10]).replace("\"", "");
+                drgs.add(drgsInfo);
 
-                providers_DrgsInfo = new String[6];
-                providers_DrgsInfo[0] = data[0];
-                providers_DrgsInfo[1] = data[9];
-                providers_DrgsInfo[2] = data[11];
-                providers_DrgsInfo[3] = data[12];
-                providers_DrgsInfo[4] = data[13];
-                providers_DrgsInfo[5] = data[14];
-                providersDrgs.add(providers_DrgsInfo);
+                financesInfo = new String[6];
+                financesInfo[0] = data[0];
+                financesInfo[1] = data[9];
+                financesInfo[2] = data[11];
+                financesInfo[3] = data[12];
+                financesInfo[4] = data[13];
+                financesInfo[5] = data[14];
+                finances.add(financesInfo);
 
-                providerLocationsInfo = new String[5];
-                providerLocationsInfo[0] = data[2];
-                providerLocationsInfo[1] = data[3];
-                providerLocationsInfo[2] = data[4];
-                providerLocationsInfo[3] = data[5];
-                providerLocationsInfo[4] = data[6];
-                providerLocations.add(providerLocationsInfo);
+                providerStatesInfo = new String[5];
+                providerStatesInfo[0] = data[4];
+                providerStatesInfo[1] = data[5];
+                providerStatesInfo[2] = data[0];
+                providerStates.add(providerStatesInfo);
 
                 rucaInfo = new String[2];
                 rucaInfo[0] = data[7];
                 rucaInfo[1] = String.valueOf(data[8]).replace("\"", "");
+                rucaInfo[2] = data[6];
+                ruceInfo[3] = data[0];
                 ruca.add(rucaInfo);
 
             }
             // System.out.println(providers.get(0)[0]);
             System.out.println(Arrays.toString(providers.get(0)));
             System.out.println(Arrays.toString(providers.get(1)));
-            // System.out.println(drg.get(0)[0]);
-            System.out.println(Arrays.toString(drg.get(0)));
-            System.out.println(Arrays.toString(drg.get(1)));
-            System.out.println(Arrays.toString(providersDrgs.get(0)));
-            System.out.println(Arrays.toString(providersDrgs.get(1)));
+            // System.out.println(drgs.get(0)[0]);
+            System.out.println(Arrays.toString(drgs.get(0)));
+            System.out.println(Arrays.toString(drgs.get(1)));
+            System.out.println(Arrays.toString(finances.get(0)));
+            System.out.println(Arrays.toString(finances.get(1)));
 
-            System.out.println(Arrays.toString(providerLocations.get(0)));
-            System.out.println(Arrays.toString(providerLocations.get(1)));
+            System.out.println(Arrays.toString(providerStates.get(0)));
+            System.out.println(Arrays.toString(providerStates.get(1)));
 
             System.out.println(Arrays.toString(ruca.get(0)));
             System.out.println(Arrays.toString(ruca.get(1)));
