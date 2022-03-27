@@ -13,19 +13,16 @@
     CREATE TABLE Providers(
         Rndrng_CCN CHAR(6),
         Rndrng_Prvdr_Org_Name VARCHAR NOT NULL,
-        Rndrng_Prvdr_RUCA VARCHAR NOT NULL,
+        --Rndrng_Prvdr_RUCA VARCHAR NOT NULL,
         Rndrng_Prvdr_St VARCHAR NOT NULL,  
         Rndrng_Prvdr_City VARCHAR NOT NULL,  
-        Rndrng_Prvdr_State_Abrvtn CHAR(2) NOT NUll,
         PRIMARY KEY (Rndrng_CCN),
-        FOREIGN KEY (stateId, Rndrng_Prvdr_State_Abrvtn) REFERENCES ProviderState (stateId, Rndrng_Prvdr_State_Abrvtn),
-        FOREIGN KEY (rucaId, Rndrng_Prvdr_RUCA) REFERENCES Ruca (rucaid, Rndrng_Prvdr_RUCA)
     );
 
     CREATE TABLE Drg(
         DRG_Cd CHAR(3),
         DRG_Desc VARCHAR NOT NULL,
-        PRIMARY KEY (drgId, DRG_Cd)
+        PRIMARY KEY (DRG_Cd)
     );
     --(COME BACK TO THIS NOT SURE ABOUT DECIMAL DATATYPE)
     CREATE TABLE Finances(
@@ -41,14 +38,18 @@
     CREATE TABLE ProviderState(
         Rndrng_Prvdr_State_Abrvtn CHAR(2) NOT NULL, 
         Rndrng_Prvdr_State_FIPS CHAR (2) NOT NULL, 
-        PRIMARY KEY (stateId, Rndrng_Prvdr_State_Abrvtn)
+        Rndrng_CCN CHAR(6),
+        PRIMARY KEY (Rndrng_Prvdr_State_Abrvtn)
+        FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN),
     );
 
     CREATE TABLE Ruca( 
         Rndrng_Prvdr_RUCA CHAR(1), 
-        Rndrng_Prvdr_RUCA_Desc VARCHAR(5000) NOT NULL,
-        Rndrng_Prvdr_Zip5 VARCHAR(1000) NOT NULL,
-        PRIMARY KEY (rucaId, Rndrng_Prvdr_RUCA)
+        Rndrng_Prvdr_RUCA_Desc VARCHAR NOT NULL,
+        Rndrng_Prvdr_Zip5 VARCHAR NOT NULL,
+        Rndrng_CCN CHAR(6),
+        PRIMARY KEY (Rndrng_Prvdr_RUCA)
+        FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN),
     );
 
 -- TODO: create users 
