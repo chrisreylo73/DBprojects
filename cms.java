@@ -162,12 +162,10 @@ public class cms {
 
         PreparedStatement stmt;
         try {
-            stmt = conn.prepareStatement("INSERT INTO Providers VALUES('?'','?','?','?');");
-            for (int i = 1; i < providers.size(); i++) {
-                stmt.setString(1, providers.get(i)[0]);
-                stmt.setString(2, providers.get(i)[1]);
-                stmt.setString(3, providers.get(i)[2]);
-                stmt.setString(4, providers.get(i)[3]);
+            stmt = conn.prepareStatement("INSERT INTO Providers VALUES('?'','?');");
+            for (int i = 1; i < drgs.size(); i++) {
+                stmt.setString(1, drgs.get(i)[0]);
+                stmt.setString(2, drgs.get(i)[1]);
                 stmt.executeUpdate();
             }
         } catch (SQLException e1) {
