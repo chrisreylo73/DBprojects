@@ -75,6 +75,7 @@ public class cms {
             String[] providerStatesInfo;
             String[] rucaInfo;
             String[] splitRucaDesc = new String[2];
+
             // Need to split up further later on!!!
 
             while ((line = br.readLine()) != null) {
@@ -159,14 +160,16 @@ public class cms {
         // providers.get(1)[3] + "');";
 
         PreparedStatement stmt;
+        ArrayList<String> drgsKeys = new ArrayList<>();
         try {
             stmt = conn.prepareStatement("INSERT INTO Drgs VALUES(?,?);");
             for (int i = 1; i < drgs.size(); i++) {
-
-                stmt.setString(1, drgs.get(i)[0]);
-                stmt.setString(2, drgs.get(i)[1]);
-
-                stmt.executeUpdate();
+                if (!(drgsKeys.contains(drgs.get(i)[0]))) {
+                    drgsKeys.add(drgs.get(i)[0]);
+                    stmt.setString(1, drgs.get(i)[0]);
+                    stmt.setString(2, drgs.get(i)[1]);
+                    stmt.executeUpdate();
+                }
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
