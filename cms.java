@@ -111,7 +111,7 @@ public class cms {
                 rucaInfo[0] = data[7];
                 rucaInfo[1] = String.valueOf(data[8]).replace("\"", "");
                 rucaInfo[2] = data[6];
-                ruceInfo[3] = data[0];
+                rucaInfo[3] = data[0];
                 ruca.add(rucaInfo);
 
             }
