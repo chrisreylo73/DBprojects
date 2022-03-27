@@ -38,8 +38,8 @@
         Rndrng_Prvdr_State_Abrvtn CHAR(2) NOT NULL, 
         Rndrng_Prvdr_State_FIPS CHAR (2) NOT NULL, 
         Rndrng_CCN CHAR(6),
-        PRIMARY KEY (Rndrng_Prvdr_State_Abrvtn)
-        FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN),
+        PRIMARY KEY (Rndrng_Prvdr_State_Abrvtn),
+        FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN)
     );
 
     CREATE TABLE Ruca( 
@@ -47,8 +47,8 @@
         Rndrng_Prvdr_RUCA_Desc VARCHAR NOT NULL,
         Rndrng_Prvdr_Zip5 VARCHAR NOT NULL,
         Rndrng_CCN CHAR(6),
-        PRIMARY KEY (Rndrng_Prvdr_RUCA)
-        FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN),
+        PRIMARY KEY (Rndrng_Prvdr_RUCA),
+        FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN)
     );
 
 -- TODO: create users 
