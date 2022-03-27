@@ -15,7 +15,7 @@
         Rndrng_Prvdr_Org_Name VARCHAR NOT NULL,
         Rndrng_Prvdr_St VARCHAR NOT NULL,  
         Rndrng_Prvdr_City VARCHAR NOT NULL,  
-        PRIMARY KEY (Rndrng_CCN),
+        PRIMARY KEY (Rndrng_CCN)
     );
 
     CREATE TABLE Drgs(
