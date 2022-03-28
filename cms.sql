@@ -91,3 +91,43 @@
 -- j) Which provider and clinical condition pair had the highest difference between the amount charged (as described in Avg_Submtd_Cvrd_Chrg) and the amount covered by Medicare only (as described in Avg_Mdcr_Pymt_Amt)?  
     SELECT a.Rndrng_Prvdr_Org_Name, b.DRG_Desc, c.Avg_Submtd_Cvrd_Chrg - c.Avg_Mdcr_Pymt_Amt AS "Difference" FROM Providers a, Drgs b, Finances c WHERE a.Rndrng_CCN = c.Rndrng_CCN AND b.DRG_Cd = c.DRG_Cd ORDER BY "Difference" DESC LIMIT 1;
 -- TODO (optional) - BONUS POINTS: prove that you didn't do the normalization only using your "guts" but also what you learned in class; show all 2NF or 3NF violations and normalization steps in detail and you will get up to +10 points.
+
+-- 2NF
+
+-- Key is { Rndrng_CCN, DRG_Cd }
+
+-- 2NF Violations:
+
+-- Rndrng_CCN -> Rndrng_Prvdr_Org_Name, Rndrng_Prvdr_St, Rndrng_Prvdr_City,  Rndrng_Prvdr_State_Abrvtn, Rndrng_Prvdr_State_FIPS, Rndrng_Prvdr_Zip5, Rndrng_Prvdr_RUCA, Rndrng_Prvdr_RUCA_Desc
+
+-- DRG_Cd -> DRG_Desc
+
+-- Relational schema after 2NF Normalization:
+
+-- Providers (Rndrng_CCN*, Rndrng_Prvdr_Org_Name, Rndrng_Prvdr_St, Rndrng_Prvdr_City,  Rndrng_Prvdr_State_Abrvtn, Rndrng_Prvdr_State_FIPS, Rndrng_Prvdr_Zip5, Rndrng_Prvdr_RUCA, Rndrng_Prvdr_RUCA_Desc)
+
+-- Drgs(DRG_Cd*, DRG_Desc)
+
+-- Finances(Rndrng_CCN*, DRG_Cd*, Tot_Dschrgs, Avg_Submtd_Cvrd_Chrg, Avg_Tot_Pymt_Amt, Avg_Mdcr_Pymt_Amt)
+
+
+-- 3NF
+
+-- 3NF Violations:
+
+-- Rndrng_Prvdr_State_Abrvtn -> Rndrng_Prvdr_State_FIPS, Rndrng_CCN
+
+-- Rndrng_Prvdr_RUCA -> Rndrng_Prvdr_RUCA_Desc, Rndrng_Prvdr_Zip5, Rndrng_CCN
+
+
+-- Relational schema after 3NF Normalization:
+
+-- Providers(Rndrng_CCN*, Rndrng_Prvdr_Org_Name, Rndrng_Prvdr_St, Rndrng_Prvdr_City)
+
+-- Drgs(DRG_Cd*, DRG_Desc)
+
+-- Finances(Rndrng_CCN*, DRG_Cd*, Tot_Dschrgs, Avg_Submtd_Cvrd_Chrg, Avg_Tot_Pymt_Amt, Avg_Mdcr_Pymt_Amt)
+
+-- ProviderState(Rndrng_Prvdr_State_Abrvtn*, Rndrng_CCN*, Rndrng_Prvdr_State_FIPS)
+
+-- Ruca(Rndrng_Prvdr_RUCA*,  Rndrng_CCN*, Rndrng_Prvdr_RUCA_Desc, Rndrng_Prvdr_Zip5)
