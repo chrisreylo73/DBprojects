@@ -102,10 +102,11 @@ public class cms {
                 providerStatesInfo[2] = data[0];
                 providerStates.add(providerStatesInfo);
                 // Selects data that is associated with Ruca table
-                rucaInfo = new String[3];
+                rucaInfo = new String[4];
                 rucaInfo[0] = data[7];
                 rucaInfo[1] = String.valueOf(data[8]).replace("\"", "");
                 rucaInfo[2] = data[6];
+                rucaInfo[3] = data[0];
                 ruca.add(rucaInfo);
             }
             br.close(); /// close file
@@ -152,8 +153,11 @@ public class cms {
             // Send insert command for table Finances
             stmt = conn.prepareStatement("INSERT INTO Finances VALUES(?,?,?,?,?,?);");
             for (i = 1; i < finances.size(); i++) {
-                if (!(financesKeys.contains(finances.get(i)[0]) && !(financesKeys.contains(finances.get(i)[1])))) {
-                    financesKeys.add(finances.get(i)[0]);
+                // if (!(financesKeys.contains(finances.get(i)[0]) &&
+                // /!(financesKeys.contains(finances.get(i)[1]))))
+
+                if (!(financesKeys.contains(finances.get(i)[0] + finances.get(i)[1]))) {
+                    financesKeys.add(finances.get(i)[0] + finances.get(i)[1]);
                     stmt.setString(1, finances.get(i)[0]);
                     stmt.setString(2, finances.get(i)[1]);
                     stmt.setInt(3, Integer.parseInt(finances.get(i)[2]));
@@ -166,8 +170,10 @@ public class cms {
             // Send insert command for table ProviderStates
             stmt = conn.prepareStatement("INSERT INTO ProviderStates VALUES(?,?,?);");
             for (i = 1; i < providerStates.size(); i++) {
-                if (!(providerStatesKeys.contains(providerStates.get(i)[0]))) {
-                    providerStatesKeys.add(providerStates.get(i)[0]);
+                // if (!(providerStatesKeys.contains(providerStates.get(i)[0]))
+                // && !(providerStatesKeys.contains(providerStates.get(i)[2])))
+                if (!(providerStatesKeys.contains(providerStates.get(i)[0] + providerStates.get(i)[2]))) {
+                    providerStatesKeys.add(providerStates.get(i)[0] + providerStates.get(i)[2]);
                     stmt.setString(1, providerStates.get(i)[0]);
                     stmt.setString(2, providerStates.get(i)[1]);
                     stmt.setString(3, providerStates.get(i)[2]);
@@ -175,17 +181,20 @@ public class cms {
                 }
             }
             // Send insert command for table Ruca
-            stmt = conn.prepareStatement("INSERT INTO Ruca VALUES(?,?,?);");
+            stmt = conn.prepareStatement("INSERT INTO Ruca VALUES(?,?,?,?);");
             for (i = 1; i < ruca.size(); i++) {
-                if (!(rucaKeys.contains(ruca.get(i)[0]))) {
-                    rucaKeys.add(ruca.get(i)[0]);
+                if (!(rucaKeys.contains(ruca.get(i)[0] + ruca.get(i)[3]))) {
+                    rucaKeys.add(ruca.get(i)[0] + ruca.get(i)[3]);
                     stmt.setString(1, ruca.get(i)[0]);
                     stmt.setString(2, ruca.get(i)[1]);
                     stmt.setString(3, ruca.get(i)[2]);
+                    stmt.setString(4, ruca.get(i)[3]);
                     stmt.executeUpdate();
                 }
             }
-        } catch (SQLException e1) {
+        } catch (
+
+        SQLException e1) {
             e1.printStackTrace();
         }
     }

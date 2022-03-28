@@ -35,10 +35,10 @@
     );
 
     CREATE TABLE ProviderStates(
-        Rndrng_Prvdr_State_Abrvtn CHAR(2) NOT NULL, 
+        Rndrng_Prvdr_State_Abrvtn CHAR(2), 
         Rndrng_Prvdr_State_FIPS CHAR (2) NOT NULL, 
         Rndrng_CCN CHAR(6),
-        PRIMARY KEY (Rndrng_Prvdr_State_Abrvtn),
+        PRIMARY KEY (Rndrng_Prvdr_State_Abrvtn, Rndrng_CCN),
         FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN)
     );
 
@@ -46,8 +46,8 @@
         Rndrng_Prvdr_RUCA VARCHAR, 
         Rndrng_Prvdr_RUCA_Desc VARCHAR NOT NULL,
         Rndrng_Prvdr_Zip5 VARCHAR NOT NULL,
-        Rndrng_CCN VARCHAR,
-        PRIMARY KEY (Rndrng_Prvdr_RUCA),
+        Rndrng_CCN CHAR(6),
+        PRIMARY KEY (Rndrng_Prvdr_RUCA, Rndrng_CCN),
         FOREIGN KEY (Rndrng_CCN) REFERENCES Providers (Rndrng_CCN)
     );
 
@@ -66,23 +66,24 @@
 -- TODO: answer all queries
 
 -- a) List all diagnostic names in alphabetical order.   
-    
+    SELECT DRG_Desc AS "Diagnostic Names" FROM Drgs ORDER BY 1;
 -- b) List the names and correspondent states (including Washington D.C.) of all of the providers in alphabetical order (state first, provider name next, no repetition).   
-  
+    SELECT b.Rndrng_Prvdr_State_Abrvtn, a.Rndrng_Prvdr_Org_Name FROM Providers a, ProviderStates b WHERE a.Rndrng_CCN = b.Rndrng_CCN GROUP BY b.Rndrng_Prvdr_State_Abrvtn, a.Rndrng_Prvdr_Org_Name ORDER BY 1;
 -- c) List the total number of providers.  
-  
+    SELECT COUNT(*) FROM Providers;  
 -- d) List the total number of providers per state (including Washington D.C.) in alphabetical order (also printing out the state). 
-    SELECT DISTICT count(Rndrng_CCN), Rndrng_Prvdr_State_Abrvtn FROM ProviderStates a, Providers b WHERE a.Rndrng_Prvdr_State_Abrvtn = b.Rndrng_Prvdr_State_Abrvtn GROUP BY  Rndrng_Prvdr_State_Abrvtn;
+    SELECT a.Rndrng_Prvdr_State_Abrvtn, count(b.Rndrng_CCN) FROM ProviderStates a, Providers b WHERE a.Rndrng_CCN = b.Rndrng_CCN GROUP BY a.Rndrng_Prvdr_State_Abrvtn ORDER BY 1;
 -- e) List the providers names in Denver (CO) or in Lakewood (CO) in alphabetical order 
-
+    SELECT Rndrng_Prvdr_Org_Name FROM Providers WHERE Rndrng_Prvdr_City = 'Denver' OR Rndrng_Prvdr_City = 'Lakewood' ORDER BY 1;
 -- f) List the number of providers per RUCA code (showing the code and description)
-
+    SELECT COUNT(a.Rndrng_CCN) AS "Number of Providers", Rndrng_Prvdr_RUCA, Rndrng_Prvdr_RUCA_Desc FROM Providers a, Ruca b WHERE a.Rndrng_CCN = b.Rndrng_CCN GROUP BY  Rndrng_Prvdr_RUCA, Rndrng_Prvdr_RUCA_Desc;
 -- g) Show the DRG description for code 308
-  
+    SELECT DRG_Desc FROM Drgs WHERE DRG_Cd = '308';
 -- h) List the top 10 providers (with their correspondent state) that charged (as described in Avg_Submtd_Cvrd_Chrg) the most for the DRG code 308. Output should display the provider name, their city, state, and the average charged amount in descending order.  
-
+    SELECT a.Rndrng_Prvdr_Org_Name, a.Rndrng_Prvdr_City, b.Rndrng_Prvdr_State_Abrvtn, c.Avg_Submtd_Cvrd_Chrg FROM Providers a, ProviderStates b, Finances c WHERE a.Rndrng_CCN = b.Rndrng_CCN AND a.Rndrng_CCN = c.Rndrng_CCN AND c.DRG_Cd = '308' ORDER BY c.Avg_Submtd_Cvrd_Chrg DESC LIMIT 10;
 -- i) List the average charges (as described in Avg_Submtd_Cvrd_Chrg) of all providers per state for the DRG code 308. Output should display the state and the average charged amount per state in descending order (of the charged amount) using only two decimals.   
- 
+    SELECT a.Rndrng_Prvdr_State_Abrvtn, ROUND(AVG(b.Avg_Submtd_Cvrd_Chrg),2) AS "Avg Charges" FROM ProviderStates a, Finances b WHERE b.Rndrng_CCN = a.Rndrng_CCN AND DRG_Cd = '308' GROUP BY Rndrng_Prvdr_State_Abrvtn ORDER BY "Avg Charges" DESC;
+    SELECT a.Rndrng_Prvdr_State_Abrvtn, Round(AVG(b.Avg_Submtd_Cvrd_Chrg),2) AS "Avg Charges" FROM ProviderStates a, Finances b WHERE b.Rndrng_CCN = a.Rndrng_CCN AND DRG_Cd = '308' GROUP BY a.Rndrng_Prvdr_State_Abrvtn, b.Avg_Submtd_Cvrd_Chrg ORDER BY b.Avg_Submtd_Cvrd_Chrg DESC;
 -- j) Which provider and clinical condition pair had the highest difference between the amount charged (as described in Avg_Submtd_Cvrd_Chrg) and the amount covered by Medicare only (as described in Avg_Mdcr_Pymt_Amt)?  
-
+    SELECT a.Rndrng_Prvdr_Org_Name, b.DRG_Desc, c.Avg_Submtd_Cvrd_Chrg - c.Avg_Mdcr_Pymt_Amt AS "Difference" FROM Providers a, Drgs b, Finances c WHERE a.Rndrng_CCN = c.Rndrng_CCN AND b.DRG_Cd = c.DRG_Cd ORDER BY "Difference" DESC LIMIT 1;
 -- TODO (optional) - BONUS POINTS: prove that you didn't do the normalization only using your "guts" but also what you learned in class; show all 2NF or 3NF violations and normalization steps in detail and you will get up to +10 points.
