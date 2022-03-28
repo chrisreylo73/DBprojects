@@ -52,8 +52,9 @@
     );
 
 -- TODO: create users 
-   -- CREATE USER "cms_admin" PASSWORD '024680';
-   -- CREATE USER "cms" PASSWORD '135791';
+   DROP ROLE IF EXISTS "cms_admin", "cms";
+   CREATE USER "cms_admin" PASSWORD '024680';
+   CREATE USER "cms" PASSWORD '135791';
 -- TODO: grant access to users 
 -- Not correct but this is the idea (come back to this)
    GRANT ALL ON TABLE Providers TO "cms_admin";
@@ -62,7 +63,11 @@
    GRANT ALL ON Table ProviderStates TO "cms_admin";
    GRANT ALL ON Table Ruca TO "cms_admin";
 
-   -- GRANT SELECT ON TABLE Employees TO "cms";
+   GRANT SELECT ON TABLE Providers TO "cms"; 
+   GRANT SELECT ON TABLE Drgs TO "cms";
+   GRANT SELECT ON TABLE Finances TO "cms"; 
+   GRANT SELECT ON TABLE ProviderStates TO "cms";
+   GRANT SELECT ON TABLE Ruca TO "cms";
 -- TODO: answer all queries
 
 -- a) List all diagnostic names in alphabetical order.   
@@ -83,7 +88,6 @@
     SELECT a.Rndrng_Prvdr_Org_Name, a.Rndrng_Prvdr_City, b.Rndrng_Prvdr_State_Abrvtn, c.Avg_Submtd_Cvrd_Chrg FROM Providers a, ProviderStates b, Finances c WHERE a.Rndrng_CCN = b.Rndrng_CCN AND a.Rndrng_CCN = c.Rndrng_CCN AND c.DRG_Cd = '308' ORDER BY c.Avg_Submtd_Cvrd_Chrg DESC LIMIT 10;
 -- i) List the average charges (as described in Avg_Submtd_Cvrd_Chrg) of all providers per state for the DRG code 308. Output should display the state and the average charged amount per state in descending order (of the charged amount) using only two decimals.   
     SELECT a.Rndrng_Prvdr_State_Abrvtn, ROUND(AVG(b.Avg_Submtd_Cvrd_Chrg),2) AS "Avg Charges" FROM ProviderStates a, Finances b WHERE b.Rndrng_CCN = a.Rndrng_CCN AND DRG_Cd = '308' GROUP BY Rndrng_Prvdr_State_Abrvtn ORDER BY "Avg Charges" DESC;
-    SELECT a.Rndrng_Prvdr_State_Abrvtn, Round(AVG(b.Avg_Submtd_Cvrd_Chrg),2) AS "Avg Charges" FROM ProviderStates a, Finances b WHERE b.Rndrng_CCN = a.Rndrng_CCN AND DRG_Cd = '308' GROUP BY a.Rndrng_Prvdr_State_Abrvtn, b.Avg_Submtd_Cvrd_Chrg ORDER BY b.Avg_Submtd_Cvrd_Chrg DESC;
 -- j) Which provider and clinical condition pair had the highest difference between the amount charged (as described in Avg_Submtd_Cvrd_Chrg) and the amount covered by Medicare only (as described in Avg_Mdcr_Pymt_Amt)?  
     SELECT a.Rndrng_Prvdr_Org_Name, b.DRG_Desc, c.Avg_Submtd_Cvrd_Chrg - c.Avg_Mdcr_Pymt_Amt AS "Difference" FROM Providers a, Drgs b, Finances c WHERE a.Rndrng_CCN = c.Rndrng_CCN AND b.DRG_Cd = c.DRG_Cd ORDER BY "Difference" DESC LIMIT 1;
 -- TODO (optional) - BONUS POINTS: prove that you didn't do the normalization only using your "guts" but also what you learned in class; show all 2NF or 3NF violations and normalization steps in detail and you will get up to +10 points.

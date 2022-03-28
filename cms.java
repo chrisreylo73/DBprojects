@@ -2,7 +2,9 @@
 Authors: Christian Lopez, Juan Ruiz
 date:03/27/2022
 Description:
-This program takes in a csv file, splits the information to eventually serve it to a postgressql database named cms. 
+This program takes in a csv file, splits the information to eventually serve it to a postgressql database named cms.
+USER "cms_admin" PASSWORD '024680';
+USER "cms" PASSWORD '135791';
 */
 package DBprojects;
 
@@ -30,8 +32,6 @@ public class cms {
         String user = keyboard.nextLine();
         System.out.println("Enter in password: ");
         String password = keyboard.nextLine();
-        // USER "cms_admin" PASSWORD '024680';
-        // USER "cms" PASSWORD '135791';
 
         // Connects to server
         try {
