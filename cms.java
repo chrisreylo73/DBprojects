@@ -5,7 +5,6 @@ Description:
 This program takes in a csv file, splits the information to eventually serve it to a postgressql database named cms.
 The progam asks user for username, password, and path to CSV file.
 
-
 USER "cms_admin" PASSWORD '024680';
 USER "cms" PASSWORD '135791';
 */
@@ -35,7 +34,6 @@ public class cms {
         String user = keyboard.nextLine();
         System.out.println("Enter in password: ");
         String password = keyboard.nextLine();
-
         // Connects to server
         try {
             String connectURL = "jdbc:postgresql://" + server + "/" + database + "?user=" + user + "&password="
