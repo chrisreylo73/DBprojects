@@ -6,27 +6,63 @@ Description: creates a Student entity with a 1-many mapping to StudentInterest a
 '''
 
 from curses.ascii import EM
-from sqlalchemy.ext.declarative import declarative_base  
+import re
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer, create_engine, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 
 Base = declarative_base()
 
 # TODO: finish the object-relational mapping
-class Student(Base): 
-    pass
 
+# class Interest(Base):
+#     __tablename__ = 'Interests'
+
+#     abbrv = Column(String, primary_key=True)
+#     descr = Column(String)
+
+#     def __str__(self):
+#         return str(self.abbrv) + ", " + str(self.descr)
+
+
+class Student(Base):
+    __tablename__ = 'Students'
+    email = Column(String, primary_key=True)
+    name = Column(String, nullable=False)
+    major = Column(String)  # Might set to NOT NULL
+    graduation = Column(String)  # Might set to NOT NULL
+    interests = relationship(
+        "StudentInterest", primaryjoin="Student.email==StudentInterest.email")
+
+    def __str__(self):
+        s = str(self.email) + ", " + str(self.name) + ", " + \
+            str(self.major) + ", " + str(self.graduation) + str(", [")
+        for interest in self.interests:
+            s += str(interest) + " "
+        s += str("]")
+        return s[0:len(s) - 2] + "]"
 # TODO: finish the object-relational mapping
+
+
 class StudentInterest(Base):
-    pass
+    __tablename__ = 'StudentInterests'
+
+    email = Column(String, ForeignKey("Students.email"), primary_key=True)
+    abbrv = Column(String, ForeignKey("Interests.abbrv"), primary_key=True)
+
+    def __str__(self):
+        return str(self.abbrv)
+
 
 if __name__ == "__main__":
 
     # db connection and session creation
     db_string = "sqlite:///careers.db"
-    db = create_engine(db_string)  
-    Session = sessionmaker(db)  
+    db = create_engine(db_string)
+    Session = sessionmaker(db)
     session = Session()
 
     # TODO: list all students
-    
+    studentInterestsQuery = session.query(Student)
+    for studentRow in studentInterestsQuery:
+        print(studentRow)
