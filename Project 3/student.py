@@ -15,15 +15,6 @@ Base = declarative_base()
 
 # TODO: finish the object-relational mapping
 
-# class Interest(Base):
-#     __tablename__ = 'Interests'
-
-#     abbrv = Column(String, primary_key=True)
-#     descr = Column(String)
-
-#     def __str__(self):
-#         return str(self.abbrv) + ", " + str(self.descr)
-
 
 class Student(Base):
     __tablename__ = 'Students'
@@ -39,8 +30,7 @@ class Student(Base):
             str(self.major) + ", " + str(self.graduation) + str(", [")
         for interest in self.interests:
             s += str(interest) + " "
-        s += str("]")
-        return s[0:len(s) - 2] + "]"
+        return s[0:len(s) - 1] + "]"
 # TODO: finish the object-relational mapping
 
 
