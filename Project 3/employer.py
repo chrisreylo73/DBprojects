@@ -23,14 +23,16 @@ class Employer(Base):
     location = Column(String, nullable=False)
     forProfit = Column(Boolean, nullable=False)
     govern = Column(Boolean, nullable=False)
-    interests = relationship(
-        "EmployerInterest", primaryjoin="Employer.id == EmployerInterest.id")
+    # interests = relationship(
+    #     "EmployerInterest", primaryjoin="Employer.id == EmployerInterest.id")
+    interest = relationship(
+        "EmployerInterest", back_populates="interest")
 
     def __str__(self):
         s = str(self.id) + ", " + str(self.name) + ", " + \
             str(self.size) + ", " + str(self.location) + ", " + \
             str(self.forProfit) + ", " + str(self.govern) + str(", [")
-        for interest in self.interests:
+        for interest in self.interest:
             s += str(interest) + " "
         return s[0:len(s) - 1] + "]"
 # TODO: finish the object-relational mapping
@@ -40,6 +42,8 @@ class EmployerInterest(Base):
     __tablename__ = 'EmployerInterests'
     id = Column(Integer, ForeignKey("Employers.id"), primary_key=True)
     abbrv = Column(String, ForeignKey("Interests.abbrv"), primary_key=True)
+    interest = relationship(
+        "Employer", back_populates="interest")
 
     def __str__(self):
         return str(self.abbrv)

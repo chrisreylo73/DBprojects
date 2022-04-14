@@ -22,13 +22,15 @@ class Student(Base):
     name = Column(String, nullable=False)
     major = Column(String)  # Might set to NOT NULL
     graduation = Column(String)  # Might set to NOT NULL
-    interests = relationship(
-        "StudentInterest", primaryjoin="Student.email==StudentInterest.email")
+    # interest = relationship(
+    #     "StudentInterest", primaryjoin="Student.email==StudentInterest.email")
+    interest = relationship(
+        "StudentInterest", back_populates="interest")
 
     def __str__(self):
         s = str(self.email) + ", " + str(self.name) + ", " + \
             str(self.major) + ", " + str(self.graduation) + str(", [")
-        for interest in self.interests:
+        for interest in self.interest:
             s += str(interest) + " "
         return s[0:len(s) - 1] + "]"
 # TODO: finish the object-relational mapping
@@ -39,6 +41,8 @@ class StudentInterest(Base):
 
     email = Column(String, ForeignKey("Students.email"), primary_key=True)
     abbrv = Column(String, ForeignKey("Interests.abbrv"), primary_key=True)
+    interest = relationship(
+        "Student", back_populates="interest")
 
     def __str__(self):
         return str(self.abbrv)
