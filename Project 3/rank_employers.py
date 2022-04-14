@@ -1,7 +1,7 @@
 '''
 CS3810 - Principles of Database Systems - Spring 2022
 Instructor: Thyago Mota
-Student Names:
+Student Names: Juan Ruiz and Christian Lopez
 Description: show recommendation scores for student-employer matching based on common interests
 '''
 
@@ -17,11 +17,7 @@ def jaccard(student, employer):
     common = 0
     for studentInterest in student.interest:
         found = False
-        # print("Student Interest:", end='')
-        # print(studentInterest)
         for employerInterest in employer.interest:
-            # print("Employer Interest:", end="")
-            # print(employerInterest)
             if str(studentInterest) == str(employerInterest):
                 found = True
                 break
