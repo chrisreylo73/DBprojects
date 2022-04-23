@@ -26,8 +26,8 @@ def create_connection(db_file):
 
 # TODO: create and populate the database
 if __name__ == '__main__':
-    create_connection(
-        r"C:\Users\chris\AppData\Local\Programs\Python\Python310\Lib\sqlite3\careers.db")
+    path = input("Please enter in sqlite careers.db path: ")
+    create_connection(path)
 # C:\Users\jttom\AppData\Local\Programs\Python\Python310\Lib\sqlite3\careers.db
 
 conn = sqlite3.connect('careers.db')
