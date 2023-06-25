@@ -10,7 +10,7 @@
   ### Software: 
   Java and posgreSQL.
 ## Project 3
-This program creates and populates a file-based embedded database, demonstrates relationa mapping between employers and students based on interests. 
+This program creates and populates a file-based embedded database, demonstrates relational mapping between employers and students based on interests. 
   ### Software: 
   python and sqlite3.
   
